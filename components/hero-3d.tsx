@@ -9,8 +9,10 @@ function RotatingCube() {
   const meshRef = useRef<THREE.Mesh>(null!)
 
   useFrame(() => {
-    meshRef.current.rotation.x += 0.003
-    meshRef.current.rotation.y += 0.005
+    if (meshRef.current) {
+      meshRef.current.rotation.x += 0.003
+      meshRef.current.rotation.y += 0.005
+    }
   })
 
   return (
