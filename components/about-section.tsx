@@ -1,13 +1,16 @@
 'use client'
 
+import { Trophy, Award, Target, Code, Globe, Zap } from 'lucide-react'
+import { motion } from 'framer-motion'
+
 export function AboutSection() {
   const achievements = [
-    { icon: '🏆', title: 'Web3conf\'25 Winner', desc: 'Top winner at major Web3 conference' },
-    { icon: '🥈', title: 'Top 5 - IBW Hackathon', desc: 'Cardano Hackathon placement' },
-    { icon: '🎯', title: 'AQVH\'25 Finalist', desc: 'Advanced quantum hackathon finalist' },
-    { icon: '💻', title: '550+ LeetCode', desc: '1600+ contest rating in competitive programming' },
-    { icon: '🌍', title: 'Open Source', desc: 'Contributor to BrainGlobe (NIU Group)' },
-    { icon: '🔬', title: 'Enterprise SDE', desc: 'TVS Group internship - 1000+ daily queries' },
+    { icon: Trophy, title: 'Web3conf\'25 Winner', desc: 'Top winner at major Web3 conference' },
+    { icon: Award, title: 'Top 5 - IBW Hackathon', desc: 'Cardano Hackathon placement' },
+    { icon: Target, title: 'AQVH\'25 Finalist', desc: 'Advanced quantum hackathon finalist' },
+    { icon: Code, title: '550+ LeetCode', desc: '1600+ contest rating in competitive programming' },
+    { icon: Globe, title: 'Open Source', desc: 'Contributor to BrainGlobe (NIU Group)' },
+    { icon: Zap, title: 'Enterprise SDE', desc: 'TVS Group internship - 1000+ daily queries' },
   ]
 
   return (
@@ -51,23 +54,29 @@ export function AboutSection() {
 
           {/* Right: Achievements Grid */}
           <div className="space-y-4">
-            {achievements.map((achievement, index) => (
-              <div
-                key={achievement.title}
-                className="bg-gradient-to-br from-gray-900 to-gray-950 p-6 rounded-lg border border-gray-800 hover:border-red-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/10"
-                style={{
-                  animation: `slideInRight 0.5s ease-out ${index * 0.1}s both`,
-                }}
-              >
-                <div className="flex items-start gap-4">
-                  <span className="text-3xl">{achievement.icon}</span>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-white mb-1">{achievement.title}</h3>
-                    <p className="text-sm text-gray-400">{achievement.desc}</p>
+            {achievements.map((achievement, index) => {
+              const IconComponent = achievement.icon
+              return (
+                <motion.div
+                  key={achievement.title}
+                  className="bg-gradient-to-br from-gray-900 to-gray-950 p-6 rounded-lg border border-gray-800 hover:border-red-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/10"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="p-2 bg-red-500/20 rounded-lg">
+                      <IconComponent size={24} className="text-red-400" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-white mb-1">{achievement.title}</h3>
+                      <p className="text-sm text-gray-400">{achievement.desc}</p>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                </motion.div>
+              )
+            })}
           </div>
         </div>
 
@@ -80,18 +89,6 @@ export function AboutSection() {
         </div>
       </div>
 
-      <style>{`
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-      `}</style>
     </section>
   )
 }

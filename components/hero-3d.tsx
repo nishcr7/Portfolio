@@ -23,19 +23,12 @@ function RotatingCube() {
   return (
     <mesh ref={meshRef} position={[0, 0, 0]} scale={1.5}>
       <boxGeometry args={[2, 2, 2]} />
-      <meshPhongMaterial
-        color="#ff3333"
-        emissive="#ff3333"
-        emissiveIntensity={0.3}
-        wireframe={false}
-      />
       <meshStandardMaterial
         color="#ff3333"
         emissive="#ff3333"
         emissiveIntensity={0.2}
+        wireframe={false}
       />
-      <pointLight position={[10, 10, 10]} intensity={1} color="#ff3333" />
-      <pointLight position={[-10, -10, 10]} intensity={0.8} color="#ff8533" />
     </mesh>
   )
 }
@@ -46,12 +39,15 @@ function Scene3D() {
       className="w-full h-full"
       camera={{ position: [0, 0, 5], fov: 75 }}
       style={{ background: 'transparent' }}
+      gl={{ alpha: true, antialias: true }}
     >
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.6} />
+      <pointLight position={[10, 10, 10]} intensity={1} color="#ff3333" />
+      <pointLight position={[-10, -10, 10]} intensity={0.8} color="#ff8533" />
       <Float speed={4} rotationIntensity={1} floatIntensity={2}>
         <RotatingCube />
       </Float>
-      <OrbitControls autoRotate autoRotateSpeed={2} />
+      <OrbitControls autoRotate autoRotateSpeed={2} enableZoom={false} />
     </Canvas>
   )
 }
