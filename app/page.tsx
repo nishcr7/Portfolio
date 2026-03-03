@@ -1,9 +1,13 @@
+import dynamic from 'next/dynamic'
 import { Navbar } from '@/components/navbar'
-import { Hero3D } from '@/components/hero-3d'
 import { ProjectsShowcase } from '@/components/projects-showcase'
 import { SkillsSection } from '@/components/skills-section'
 import { AboutSection } from '@/components/about-section'
 import { ContactSection, Footer } from '@/components/contact-section'
+
+const Hero3D = dynamic(() => import('@/components/hero-3d').then(mod => ({ default: mod.Hero3D })), {
+  ssr: false,
+})
 
 export default function Home() {
   return (

@@ -1,24 +1,17 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Float, Gltf } from '@react-three/drei'
+import { useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls, Float } from '@react-three/drei'
 import * as THREE from 'three'
 
 function RotatingCube() {
-  const meshRef = useRef(null)
+  const meshRef = useRef<THREE.Mesh>(null!)
 
-  useEffect(() => {
-    const mesh = meshRef.current
-    if (!mesh) return
-
-    const animate = () => {
-      mesh.rotation.x += 0.003
-      mesh.rotation.y += 0.005
-      requestAnimationFrame(animate)
-    }
-    animate()
-  }, [])
+  useFrame(() => {
+    meshRef.current.rotation.x += 0.003
+    meshRef.current.rotation.y += 0.005
+  })
 
   return (
     <mesh ref={meshRef} position={[0, 0, 0]} scale={1.5}>
